@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dự án Bot & Website — Đội ngũ lập trình viên</title>
+<meta name="description" content="Giới thiệu dự án phát triển Bot & Website và đội ngũ lập trình viên: Trọng Hiếu (Việt Nam) & Dark Qyoocs (Bangladesh).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<style>
+:root{
+  --bg:#1b1b20;
+  --bg-2:#15151a;
+  --card:#25252c;
+  --card-2:#2d2d36;
+  --text:#eae7e0;
+  --muted:#9d9a92;
+  --accent:#c47046;
+  --accent-soft:rgba(196,112,70,.15);
+  --accent2:#7ba8b8;
+  --accent2-soft:rgba(123,168,184,.15);
+  --hieu:#e08a4f;
+  --hieu-soft:rgba(224,138,79,.14);
+  --darkm:#6fa8c9;
+  --darkm-soft:rgba(111,168,201,.14);
+  --border:rgba(234,231,224,.12);
+  --success:#5fa87a;
+  --danger:#d96a5e;
+  --radius:16px;
+  --shadow:0 12px 44px rgba(0,0,0,.4);
+  --font:'Red Hat Display',system-ui,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+::selection{background:var(--accent);color:#fff}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--bg-2)}
+::-webkit-scrollbar-thumb{background:#444;border-radius:5px}
+::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+
+.bg-grid{position:fixed;inset:0;z-index:-2;pointer-events:none;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:54px 54px;mask-image:radial-gradient(ellipse 80% 55% at 50% 0%,#000 35%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 80% 55% at 50% 0%,#000 35%,transparent 100%);opacity:.45}
+.orb{position:fixed;border-radius:50%;filter:blur(110px);z-index:-1;pointer-events:none;opacity:.32}
+.orb-1{width:460px;height:460px;background:var(--hieu);top:-140px;left:-120px;animation:float 14s ease-in-out infinite}
+.orb-2{width:420px;height:420px;background:var(--darkm);top:35%;right:-160px;animation:float 18s ease-in-out infinite reverse}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(36px,-28px)}}
+
+.container{max-width:1160px;margin:0 auto;padding:0 24px}
+section{padding:92px 0;position:relative}
+.section-head{text-align:center;max-width:660px;margin:0 auto 52px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.76rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent);padding:6px 14px;border-radius:999px;margin-bottom:18px}
+.section-head h2{font-size:clamp(1.75rem,3.8vw,2.5rem);font-weight:800;line-height:1.15;margin-bottom:14px}
+.section-head h2 .grad{background:linear-gradient(90deg,var(--hieu),var(--darkm));-webkit-background-clip:text;background-clip:text;color:transparent}
+.section-head p{color:var(--muted);font-size:1.04rem}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 26px;border-radius:10px;font-weight:700;font-size:.95rem;transition:transform .2s,box-shadow .2s,background .2s,border-color .2s;white-space:nowrap}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 6px 24px rgba(196,112,70,.35)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(196,112,70,.5)}
+.btn-outline{border:1px solid var(--border);background:var(--card);color:var(--text)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.btn-sm{padding:9px 18px;font-size:.85rem}
+.btn-block{width:100%}
+
+/* ---------- Navbar ---------- */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(21,21,26,.78);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+.navbar.scrolled{border-bottom-color:var(--border);background:rgba(21,21,26,.92)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+.logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:1.1rem;letter-spacing:-.02em;white-space:nowrap}
+.logo-mark{width:38px;height:38px;border-radius:10px;flex-shrink:0;background:linear-gradient(135deg,var(--hieu),var(--darkm));display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 4px 16px rgba(196,112,70,.35)}
+.logo-mark svg{width:20px;height:20px}
+.logo b{background:linear-gradient(90deg,var(--hieu),var(--darkm));-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none}
+.nav-links a{padding:9px 14px;border-radius:8px;font-weight:600;font-size:.9rem;color:var(--muted);transition:color .2s,background .2s}
+.nav-links a:hover{color:var(--text);background:rgba(234,231,224,.05)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.lang-toggle{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;border:1px solid var(--border);background:var(--card);font-weight:700;font-size:.8rem;color:var(--muted);transition:all .2s}
+.lang-toggle:hover{border-color:var(--accent2);color:var(--accent2)}
+.lang-toggle svg{width:15px;height:15px}
+.hamburger{display:none;width:42px;height:42px;border-radius:10px;align-items:center;justify-content:center;border:1px solid var(--border)}
+.hamburger svg{width:22px;height:22px}
+
+/* User menu */
+.user-menu{position:relative}
+.user-btn{display:flex;align-items:center;gap:9px;padding:6px 12px 6px 6px;border-radius:999px;border:1px solid var(--border);background:var(--card);transition:border-color .2s}
+.user-btn:hover{border-color:var(--accent)}
+.avatar{width:32px;height:32px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--darkm),var(--hieu));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.85rem}
+.user-name{font-size:.88rem;font-weight:700;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.user-dropdown{position:absolute;top:calc(100% + 10px);right:0;min-width:210px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:8px;opacity:0;visibility:hidden;transform:translateY(-8px);transition:all .2s;z-index:50}
+.user-dropdown.open{opacity:1;visibility:visible;transform:translateY(0)}
+.dd-head{padding:10px 12px;border-bottom:1px solid var(--border);margin-bottom:6px}
+.dd-head .dd-name{font-weight:700;font-size:.95rem}
+.dd-head .dd-mail{font-size:.78rem;color:var(--muted);font-family:var(--mono)}
+.dd-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:10px 12px;border-radius:8px;font-size:.9rem;font-weight:600;color:var(--muted);transition:background .15s,color .15s}
+.dd-item:hover{background:rgba(234,231,224,.06);color:var(--text)}
+.dd-item svg{width:17px;height:17px}
+.dd-item.danger{color:var(--danger)}
+.dd-item.danger:hover{background:rgba(217,106,94,.1)}
+
+/* Mobile drawer */
+.mobile-drawer{position:fixed;top:0;right:0;bottom:0;width:min(320px,82vw);z-index:200;background:var(--bg-2);border-left:1px solid var(--border);transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);padding:24px;display:flex;flex-direction:column;gap:6px;overflow-y:auto}
+.mobile-drawer.open{transform:translateX(0)}
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:150;opacity:0;visibility:hidden;transition:all .3s;backdrop-filter:blur(3px)}
+.drawer-overlay.open{opacity:1;visibility:visible}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.drawer-close{width:40px;height:40px;border-radius:10px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center}
+.drawer-link{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:10px;font-weight:600;color:var(--muted);transition:all .15s}
+.drawer-link:hover{background:var(--card);color:var(--text)}
+.drawer-link svg{width:20px;height:20px;color:var(--accent)}
+.drawer-actions{margin-top:auto;display:flex;flex-direction:column;gap:10px;padding-top:16px;border-top:1px solid var(--border)}
+
+/* ---------- Hero ---------- */
+.hero{padding:156px 0 90px;position:relative}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:52px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:var(--accent2-soft);border:1px solid var(--accent2);color:var(--accent2);font-size:.78rem;font-weight:700;letter-spacing:.04em;margin-bottom:22px}
+.hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--success);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(95,168,122,.6)}50%{box-shadow:0 0 0 6px rgba(95,168,122,0)}}
+.hero h1{font-size:clamp(2.1rem,5vw,3.4rem);font-weight:900;line-height:1.08;letter-spacing:-.03em;margin-bottom:20px}
+.hero h1 .grad{background:linear-gradient(90deg,var(--hieu),#e8a06a 45%,var(--darkm));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{color:var(--muted);font-size:1.1rem;max-width:520px;margin-bottom:30px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:40px}
+.hero-stats{display:flex;gap:34px;flex-wrap:wrap}
+.stat .num{font-size:1.85rem;font-weight:800;font-family:var(--mono)}
+.stat .num span{color:var(--accent)}
+.stat .lbl{font-size:.8rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+
+.hero-visual{position:relative}
+.terminal-card{background:#0d0d11;border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;font-family:var(--mono);font-size:.82rem;transform:perspective(1200px) rotateY(-5deg);transition:transform .5s}
+.terminal-card:hover{transform:perspective(1200px) rotateY(0)}
+.terminal-head{display:flex;align-items:center;gap:8px;padding:12px 16px;background:#16161c;border-bottom:1px solid var(--border)}
+.t-dot{width:11px;height:11px;border-radius:50%}
+.t-dot.r{background:#ff5f57}.t-dot.y{background:#febc2e}.t-dot.g{background:#28c840}
+.t-fname{margin-left:8px;color:var(--muted);font-size:.75rem}
+.terminal-body{padding:20px;line-height:1.9;min-height:260px}
+.terminal-body .prompt{color:var(--hieu)}
+.terminal-body .out{color:var(--muted)}
+.terminal-body .ok{color:var(--success)}
+.terminal-body .warn{color:var(--darkm)}
+.cursor{display:inline-block;width:9px;height:1.05em;background:var(--darkm);vertical-align:text-bottom;animation:blink 1s step-end infinite;margin-left:2px}
+@keyframes blink{50%{opacity:0}}
+
+/* Floating member chips */
+.member-chip{position:absolute;display:flex;align-items:center;gap:10px;padding:10px 16px;border-radius:12px;background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow);font-size:.82rem;font-weight:700;animation:floatChip 5s ease-in-out infinite}
+.member-chip .mc-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.75rem}
+.member-chip.hieu{top:-18px;right:-10px;border-color:var(--hieu)}
+.member-chip.hieu .mc-av{background:linear-gradient(135deg,var(--hieu),#c4602a)}
+.member-chip.darkm{bottom:-18px;left:-14px;border-color:var(--darkm);animation-delay:2.5s}
+.member-chip.darkm .mc-av{background:linear-gradient(135deg,var(--darkm),#4a7a9a)}
+.member-chip small{display:block;font-weight:500;color:var(--muted);font-size:.7rem}
+@keyframes floatChip{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* ---------- Project features ---------- */
+.features-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.feature-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:26px 22px;transition:transform .25s,border-color .25s,box-shadow .25s;position:relative;overflow:hidden}
+.feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--hieu),var(--darkm));transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.feature-card:hover{transform:translateY(-5px);border-color:var(--accent);box-shadow:var(--shadow)}
+.feature-card:hover::before{transform:scaleX(1)}
+.feature-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--accent-soft);color:var(--hieu);margin-bottom:16px}
+.feature-icon svg{width:24px;height:24px}
+.feature-card:nth-child(even) .feature-icon{background:var(--darkm-soft);color:var(--darkm)}
+.feature-card h3{font-size:1.05rem;font-weight:700;margin-bottom:8px}
+.feature-card p{color:var(--muted);font-size:.88rem}
+
+/* Tech stack */
+.tech-stack{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:44px}
+.tech-tag{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:999px;background:var(--card);border:1px solid var(--border);font-family:var(--mono);font-size:.82rem;font-weight:600;color:var(--muted);transition:all .2s}
+.tech-tag:hover{border-color:var(--accent2);color:var(--accent2);transform:translateY(-2px)}
+.tech-tag svg{width:15px;height:15px}
+
+/* ---------- Team members (2 separate cards) ---------- */
+.team-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch}
+.member-card{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column;position:relative}
+.member-card.hieu{border-top:4px solid var(--hieu)}
+.member-card.darkm{border-top:4px solid var(--darkm)}
+.member-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.member-header{padding:32px 28px 24px;position:relative;overflow:hidden}
+.member-card.hieu .member-header{background:radial-gradient(circle at 80% -20%,rgba(224,138,79,.25),transparent 60%)}
+.member-card.darkm .member-header{background:radial-gradient(circle at 80% -20%,rgba(111,168,201,.25),transparent 60%)}
+.member-avatar{width:88px;height:88px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:2rem;margin-bottom:18px;border:3px solid rgba(255,255,255,.15);box-shadow:0 8px 28px rgba(0,0,0,.4)}
+.member-card.hieu .member-avatar{background:linear-gradient(135deg,var(--hieu),#b85a28)}
+.member-card.darkm .member-avatar{background:linear-gradient(135deg,var(--darkm),#3d6a8a)}
+.member-name{font-size:1.55rem;font-weight:800;margin-bottom:4px;letter-spacing:-.01em}
+.member-role{font-size:.9rem;font-weight:600;margin-bottom:14px}
+.member-card.hieu .member-role{color:var(--hieu)}
+.member-card.darkm .member-role{color:var(--darkm)}
+.member-meta{display:flex;gap:10px;flex-wrap:wrap}
+.meta-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;background:rgba(0,0,0,.25);border:1px solid var(--border);font-size:.78rem;font-weight:600}
+.meta-badge svg{width:14px;height:14px}
+.member-card.hieu .meta-badge svg{color:var(--hieu)}
+.member-card.darkm .meta-badge svg{color:var(--darkm)}
+.country-code{font-family:var(--mono);font-weight:800;letter-spacing:.08em}
+.member-body{padding:24px 28px 28px;flex:1;display:flex;flex-direction:column}
+.spec-title{display:flex;align-items:center;gap:8px;font-size:.8rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.spec-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.spec-list{list-style:none;display:flex;flex-direction:column;gap:11px;flex:1}
+.spec-list li{display:flex;gap:11px;align-items:flex-start;font-size:.9rem}
+.spec-check{width:22px;height:22px;border-radius:6px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center}
+.spec-check svg{width:13px;height:13px}
+.member-card.hieu .spec-check{background:var(--hieu-soft);color:var(--hieu)}
+.member-card.darkm .spec-check{background:var(--darkm-soft);color:var(--darkm)}
+.member-footer{margin-top:22px;padding-top:18px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.online-status{display:flex;align-items:center;gap:7px;font-size:.8rem;font-weight:600;color:var(--success)}
+.online-status .dot{width:8px;height:8px;border-radius:50%;background:var(--success);animation:pulse 2s infinite}
+.member-id{font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+
+/* ---------- Workflow ---------- */
+.workflow{background:var(--bg-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:step}
+.step{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:26px 22px;position:relative;counter-increment:step}
+.step::before{content:'0' counter(step);position:absolute;top:18px;right:20px;font-family:var(--mono);font-size:2rem;font-weight:800;color:var(--border)}
+.step-icon{width:44px;height:44px;border-radius:11px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.step-icon svg{width:22px;height:22px}
+.step h4{font-weight:700;margin-bottom:6px;font-size:1rem}
+.step p{color:var(--muted);font-size:.86rem}
+
+/* ---------- CTA ---------- */
+.cta-banner{background:linear-gradient(135deg,rgba(224,138,79,.16),rgba(111,168,201,.14));border:1px solid var(--border);border-radius:24px;padding:54px 36px;text-align:center;position:relative;overflow:hidden}
+.cta-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 50%,rgba(224,138,79,.22),transparent 50%),radial-gradient(circle at 80% 50%,rgba(111,168,201,.2),transparent 50%);pointer-events:none}
+.cta-banner h2{font-size:clamp(1.55rem,3.4vw,2.2rem);font-weight:800;margin-bottom:14px;position:relative}
+.cta-banner p{color:var(--muted);margin-bottom:26px;position:relative;max-width:520px;margin-left:auto;margin-right:auto}
+.cta-banner .btn{position:relative}
+
+/* ---------- Contact ---------- */
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:44px;align-items:start}
+.contact-info{display:flex;flex-direction:column;gap:18px}
+.contact-item{display:flex;gap:14px;align-items:flex-start}
+.ci-icon{width:44px;height:44px;border-radius:12px;flex-shrink:0;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center}
+.ci-icon svg{width:21px;height:21px}
+.contact-item h4{font-weight:700;margin-bottom:3px;font-size:.95rem}
+.contact-item p{color:var(--muted);font-size:.9rem}
+.contact-form{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:.84rem;font-weight:700;margin-bottom:7px}
+.form-group input,.form-group textarea{width:100%;padding:12px 15px;border-radius:10px;border:1px solid var(--border);background:var(--bg-2);color:var(--text);font-family:inherit;font-size:.92rem;transition:border-color .2s,box-shadow .2s;outline:none}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.form-group textarea{resize:vertical;min-height:100px}
+.form-group .err{color:var(--danger);font-size:.78rem;margin-top:5px;display:none}
+.form-group.invalid .err{display:block}
+.form-group.invalid input,.form-group.invalid textarea{border-color:var(--danger)}
+
+/* ---------- Footer ---------- */
+footer{background:var(--bg-2);border-top:1px solid var(--border);padding:56px 0 26px}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:36px;margin-bottom:36px}
+.footer-brand p{color:var(--muted);font-size:.88rem;margin:14px 0 18px;max-width:300px}
+.socials{display:flex;gap:10px}
+.socials a{width:36px;height:36px;border-radius:10px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .2s}
+.socials a:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-2px)}
+.socials svg{width:17px;height:17px}
+.footer-col h4{font-size:.9rem;font-weight:800;margin-bottom:16px;text-transform:uppercase;letter-spacing:.06em}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.footer-col a{color:var(--muted);font-size:.88rem;transition:color .2s}
+.footer-col a:hover{color:var(--accent)}
+.footer-bottom{padding-top:22px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;color:var(--muted);font-size:.84rem}
+
+/* ---------- Auth modal ---------- */
+.modal-overlay{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:all .25s}
+.modal-overlay.open{opacity:1;visibility:visible}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:18px;width:100%;max-width:440px;overflow:hidden;transform:translateY(20px) scale(.97);transition:transform .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.modal-overlay.open .modal{transform:translateY(0) scale(1)}
+.modal-head{padding:24px 28px 0;position:relative}
+.modal-close{position:absolute;top:18px;right:18px;width:34px;height:34px;border-radius:9px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.modal-close:hover{color:var(--text);border-color:var(--accent)}
+.auth-tabs{display:flex;gap:4px;background:var(--bg-2);padding:5px;border-radius:10px;margin:18px 0 22px}
+.auth-tab{flex:1;padding:11px;border-radius:8px;font-weight:700;font-size:.9rem;color:var(--muted);transition:all .2s}
+.auth-tab.active{background:var(--accent);color:#fff;box-shadow:0 3px 12px rgba(196,112,70,.35)}
+.modal-body{padding:0 28px 28px}
+.auth-form{display:none;flex-direction:column;gap:13px}
+.auth-form.active{display:flex}
+.auth-form .form-group{margin-bottom:0}
+.auth-alt{text-align:center;font-size:.84rem;color:var(--muted);margin-top:4px}
+.auth-alt b{color:var(--accent);cursor:pointer;font-weight:700}
+.auth-msg{padding:10px 14px;border-radius:9px;font-size:.84rem;font-weight:600;display:none}
+.auth-msg.error{display:block;background:rgba(217,106,94,.12);color:var(--danger);border:1px solid rgba(217,106,94,.3)}
+.auth-msg.success{display:block;background:rgba(95,168,122,.12);color:var(--success);border:1px solid rgba(95,168,122,.3)}
+.pw-wrap{position:relative}
+.pw-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--muted);display:flex}
+.pw-toggle svg{width:18px;height:18px}
+
+/* ---------- Toast ---------- */
+.toast-container{position:fixed;bottom:24px;right:24px;z-index:400;display:flex;flex-direction:column;gap:10px}
+.toast{display:flex;align-items:center;gap:12px;padding:14px 20px;border-radius:12px;background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow);min-width:260px;max-width:360px;transform:translateX(120%);transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+.toast.show{transform:translateX(0)}
+.toast-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.toast.success .toast-icon{background:rgba(95,168,122,.15);color:var(--success)}
+.toast.error .toast-icon{background:rgba(217,106,94,.15);color:var(--danger)}
+.toast.info .toast-icon{background:var(--darkm-soft);color:var(--darkm)}
+.toast-icon svg{width:18px;height:18px}
+.toast-msg{font-size:.87rem;font-weight:600}
+
+.back-top{position:fixed;bottom:24px;left:24px;z-index:90;width:46px;height:46px;border-radius:12px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(196,112,70,.4);opacity:0;visibility:hidden;transform:translateY(10px);transition:all .3s}
+.back-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+.back-top:hover{transform:translateY(-3px)}
+.back-top svg{width:20px;height:20px}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ---------- Responsive ---------- */
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;gap:44px}
+  .terminal-card{transform:none;max-width:540px;margin:0 auto}
+  .features-grid{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .team-grid{grid-template-columns:1fr;max-width:560px;margin:0 auto}
+  .contact-grid{grid-template-columns:1fr;gap:32px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  section{padding:68px 0}
+  .hero{padding:128px 0 64px}
+  .nav-links,.nav-right .btn-outline,.nav-right .btn-primary{display:none}
+  .hamburger{display:flex}
+  .features-grid,.steps{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr;gap:26px}
+  .hero-stats{gap:22px}
+  .stat .num{font-size:1.45rem}
+  .cta-banner{padding:38px 22px}
+  .contact-form{padding:22px}
+  .member-header{padding:26px 22px 20px}
+  .member-body{padding:20px 22px 24px}
+  .back-top{left:14px;bottom:14px;width:42px;height:42px}
+  .toast-container{right:14px;bottom:14px;left:14px}
+  .toast{min-width:0;max-width:none}
+  .member-chip.hieu{right:0}
+  .member-chip.darkm{left:0}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="#home" class="logo">
+      <span class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+      </span>
+      <span data-i18n="brand">Dự án <b>Bot & Web</b></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#home" data-i18n="nav_home">Trang chủ</a></li>
+      <li><a href="#project" data-i18n="nav_project">Dự án</a></li>
+      <li><a href="#team" data-i18n="nav_team">Thành viên</a></li>
+      <li><a href="#workflow" data-i18n="nav_workflow">Quy trình</a></li>
+      <li><a href="#contact" data-i18n="nav_contact">Liên hệ</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+        <i data-lucide="languages"></i><span id="langLabel">EN</span>
+      </button>
+      <div id="navAuth"><!-- filled by JS --></div>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile drawer -->
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<aside class="mobile-drawer" id="mobileDrawer">
+  <div class="drawer-head">
+    <span class="logo" style="font-size:.95rem"><span class="logo-mark" style="width:32px;height:32px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span><span data-i18n="brand_short">Dự án <b>Bot & Web</b></span></span>
+    <button class="drawer-close" id="drawerClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:18px;height:18px"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+  </div>
+  <a href="#home" class="drawer-link"><i data-lucide="home"></i><span data-i18n="nav_home">Trang chủ</span></a>
+  <a href="#project" class="drawer-link"><i data-lucide="folder-git-2"></i><span data-i18n="nav_project">Dự án</span></a>
+  <a href="#team" class="drawer-link"><i data-lucide="users"></i><span data-i18n="nav_team">Thành viên</span></a>
+  <a href="#workflow" class="drawer-link"><i data-lucide="workflow"></i><span data-i18n="nav_workflow">Quy trình</span></a>
+  <a href="#contact" class="drawer-link"><i data-lucide="mail"></i><span data-i18n="nav_contact">Liên hệ</span></a>
+  <div class="drawer-actions" id="drawerAuth"><!-- filled by JS --></div>
+</aside>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div class="reveal">
+      <div class="hero-badge"><span class="dot"></span><span data-i18n="hero_badge">Dự án công nghệ của 2 lập trình viên</span></div>
+      <h1><span data-i18n="hero_title_pre">Giới thiệu</span> <span class="grad" data-i18n="hero_title_grad">Dự án Bot & Website</span></h1>
+      <p class="lead" data-i18n="hero_lead">Dự án được xây dựng bởi hai lập trình viên đến từ Việt Nam và Bangladesh, chuyên phát triển bot, website, máy chủ và giải pháp bảo mật — vận hành ổn định 24/7.</p>
+      <div class="hero-cta">
+        <a href="#project" class="btn btn-primary"><i data-lucide="rocket"></i><span data-i18n="hero_cta1">Khám phá dự án</span></a>
+        <a href="#team" class="btn btn-outline"><i data-lucide="users"></i><span data-i18n="hero_cta2">Gặp gỡ đội ngũ</span></a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="num" data-count="15">0<span>+</span></div><div class="lbl" data-i18n="stat_projects">Dự án triển khai</div></div>
+        <div class="stat"><div class="num" data-count="8">0<span>+</span></div><div class="lbl" data-i18n="stat_bots">Bot đang vận hành</div></div>
+        <div class="stat"><div class="num" data-count="99">0<span>%</span></div><div class="lbl" data-i18n="stat_uptime">Thời gian uptime</div></div>
+        <div class="stat"><div class="num" data-count="2">0</div><div class="lbl" data-i18n="stat_countries">Quốc gia</div></div>
+      </div>
+    </div>
+    <div class="reveal hero-visual">
+      <div class="terminal-card">
+        <div class="terminal-head">
+          <span class="t-dot r"></span><span class="t-dot y"></span><span class="t-dot g"></span>
+          <span class="t-fname">deploy.sh — project-terminal</span>
+        </div>
+        <div class="terminal-body">
+          <div><span class="prompt">$</span> <span id="typingText"></span><span class="cursor"></span></div>
+          <div class="out">→ Building file structure for bot & website...</div>
+          <div class="ok">✓ Code structure compiled successfully</div>
+          <div class="out">→ Configuring DNS & web server...</div>
+          <div class="ok">✓ Server online · SSL enabled · Firewall active</div>
+          <div class="out">→ Running IP security scan & encryption...</div>
+          <div class="ok">✓ Security passed · Bot launched · 24/7 mode ON</div>
+          <div class="warn">● Live update mode: enabled (zero downtime)</div>
+        </div>
+      </div>
+      <div class="member-chip hieu"><span class="mc-av">TH</span><div>Trọng Hiếu<small data-i18n="chip_vn">Việt Nam · 2011</small></div></div>
+      <div class="member-chip darkm"><span class="mc-av">DQ</span><div>Dark Qyoocs<small data-i18n="chip_bd">Bangladesh · 2005</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROJECT ================= -->
+<section id="project">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><i data-lucide="folder-git-2" style="width:14px;height:14px"></i><span data-i18n="proj_eyebrow">Giới thiệu dự án</span></span>
+      <h2><span data-i18n="proj_title_pre">Mục tiêu &</span> <span class="grad" data-i18n="proj_title_grad">năng lực dự án</span></h2>
+      <p data-i18n="proj_desc">Dự án tập trung xây dựng và vận hành hệ thống bot, website cùng hạ tầng máy chủ an toàn, hiệu quả — từ viết code, cấu trúc file đến triển khai và bảo trì liên tục.</p>
+    </div>
+    <div class="features-grid" id="featuresGrid">
+      <!-- filled by JS (i18n) -->
+    </div>
+    <div class="tech-stack reveal" id="techStack">
+      <!-- filled by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ================= TEAM (2 separate cards) ================= -->
+<section id="team" style="background:var(--bg-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><i data-lucide="users" style="width:14px;height:14px"></i><span data-i18n="team_eyebrow">Thành viên dự án</span></span>
+      <h2 data-i18n="team_title">Đội ngũ <span class="grad">lập trình viên</span></h2>
+      <p data-i18n="team_desc">Hai thành viên cốt lõi với chuyên môn bổ trợ cho nhau, nằm ở hai bảng giới thiệu riêng.</p>
+    </div>
+    <div class="team-grid" id="teamGrid">
+      <!-- two separate member cards, rendered by JS for i18n -->
+    </div>
+  </div>
+</section>
+
+<!-- ================= WORKFLOW ================= -->
+<section class="workflow" id="workflow">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><i data-lucide="workflow" style="width:14px;height:14px"></i><span data-i18n="wf_eyebrow">Quy trình làm việc</span></span>
+      <h2 data-i18n="wf_title">Từ ý tưởng đến <span class="grad">vận hành</span></h2>
+    </div>
+    <div class="steps" id="stepsGrid"><!-- filled by JS --></div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section style="padding-top:0">
+  <div class="container" style="padding-top:92px">
+    <div class="cta-banner reveal">
+      <h2 data-i18n="cta_title">Có dự án cần phát triển bot hoặc website?</h2>
+      <p data-i18n="cta_desc">Đăng ký tài khoản để theo dõi dự án và liên hệ hợp tác với đội ngũ lập trình viên.</p>
+      <button class="btn btn-primary" id="ctaRegister" style="font-size:1.02rem;padding:14px 32px"><i data-lucide="user-plus"></i><span data-i18n="cta_btn">Tạo tài khoản miễn phí</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" style="padding-top:0">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><i data-lucide="send" style="width:14px;height:14px"></i><span data-i18n="contact_eyebrow">Liên hệ</span></span>
+      <h2 data-i18n="contact_title">Kết nối với <span class="grad">chúng tôi</span></h2>
+      <p data-i18n="contact_desc">Mọi câu hỏi về dự án, hợp tác phát triển bot hoặc website đều được chào đón.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal" id="contactInfo"><!-- filled by JS --></div>
+      <form class="contact-form reveal" id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cfName" data-i18n="cf_name">Họ và tên *</label>
+            <input type="text" id="cfName" data-i18n-ph="cf_name_ph" placeholder="Nguyễn Văn A" required>
+            <div class="err" data-i18n="err_name">Vui lòng nhập họ tên</div>
+          </div>
+          <div class="form-group">
+            <label for="cfEmail" data-i18n="cf_email">Email *</label>
+            <input type="email" id="cfEmail" data-i18n-ph="cf_email_ph" placeholder="you@example.com" required>
+            <div class="err" data-i18n="err_email">Email không hợp lệ</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cfMessage" data-i18n="cf_msg">Nội dung *</label>
+          <textarea id="cfMessage" data-i18n-ph="cf_msg_ph" placeholder="Mô tả dự án của bạn..." required></textarea>
+          <div class="err" data-i18n="err_msg">Vui lòng nhập nội dung</div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block"><i data-lucide="send"></i><span data-i18n="cf_send">Gửi tin nhắn</span></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="logo">
+          <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span>
+          <span data-i18n="brand">Dự án <b>Bot & Web</b></span>
+        </a>
+        <p data-i18n="footer_about">Dự án phát triển bot & website bởi hai lập trình viên từ Việt Nam và Bangladesh. Code sạch, vận hành ổn định, bảo mật cao.</p>
+        <div class="socials">
+          <a href="#" aria-label="Github"><i data-lucide="github"></i></a>
+          <a href="#" aria-label="Discord"><i data-lucide="message-circle"></i></a>
+          <a href="#" aria-label="Telegram"><i data-lucide="send"></i></a>
+          <a href="#" aria-label="Email"><i data-lucide="mail"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer_nav">Điều hướng</h4>
+        <ul>
+          <li><a href="#project" data-i18n="nav_project">Dự án</a></li>
+          <li><a href="#team" data-i18n="nav_team">Thành viên</a></li>
+          <li><a href="#workflow" data-i18n="nav_workflow">Quy trình</a></li>
+          <li><a href="#contact" data-i18n="nav_contact">Liên hệ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer_members">Thành viên</h4>
+        <ul>
+          <li><a href="#team">Trọng Hiếu · Việt Nam</a></li>
+          <li><a href="#team">Dark Qyoocs · Bangladesh</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-i18n="rights">© 2026 Dự án Bot & Website. Bảo lưu mọi quyền.</span>
+      <span data-i18n="madewith">Được xây dựng bởi hai lập trình viên · VN × BD</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= AUTH MODAL ================= -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal">
+    <div class="modal-head">
+      <button class="modal-close" id="modalClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+      <div class="logo" style="font-size:1rem;margin-bottom:4px">
+        <span class="logo-mark" style="width:32px;height:32px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span>
+        <span data-i18n="brand_short">Dự án <b>Bot & Web</b></span>
+      </div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login" data-i18n="auth_login">Đăng nhập</button>
+        <button class="auth-tab" data-tab="register" data-i18n="auth_register">Đăng ký</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="auth-msg" id="authMsg"></div>
+      <form class="auth-form active" id="loginForm" novalidate>
+        <div class="form-group">
+          <label for="loginEmail" data-i18n="login_id">Email hoặc tên đăng nhập</label>
+          <input type="text" id="loginEmail" data-i18n-ph="login_id_ph" placeholder="you@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword" data-i18n="login_pw">Mật khẩu</label>
+          <div class="pw-wrap">
+            <input type="password" id="loginPassword" data-i18n-ph="pw_ph" placeholder="••••••••" required>
+            <button type="button" class="pw-toggle" data-target="loginPassword" aria-label="Show password"><i data-lucide="eye"></i></button>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:.8rem">
+          <label style="display:flex;align-items:center;gap:6px;color:var(--muted);cursor:pointer"><input type="checkbox" id="rememberMe" style="accent-color:var(--accent)"> <span data-i18n="remember">Ghi nhớ tôi</span></label>
+          <a href="#" style="color:var(--accent);font-weight:600" data-i18n="forgot">Quên mật khẩu?</a>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block"><i data-lucide="log-in"></i><span data-i18n="auth_login">Đăng nhập</span></button>
+        <div class="auth-alt"><span data-i18n="no_account">Chưa có tài khoản?</span> <b id="switchToRegister" data-i18n="register_now">Đăng ký ngay</b></div>
+      </form>
+      <form class="auth-form" id="registerForm" novalidate>
+        <div class="form-group">
+          <label for="regName" data-i18n="reg_name">Họ và tên</label>
+          <input type="text" id="regName" data-i18n-ph="reg_name_ph" placeholder="Nguyễn Văn A" required>
+        </div>
+        <div class="form-group">
+          <label for="regUser" data-i18n="reg_user">Tên đăng nhập</label>
+          <input type="text" id="regUser" data-i18n-ph="reg_user_ph" placeholder="devmaster" required>
+        </div>
+        <div class="form-group">
+          <label for="regEmail" data-i18n="reg_email">Email</label>
+          <input type="email" id="regEmail" data-i18n-ph="cf_email_ph" placeholder="you@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="regPassword" data-i18n="reg_pw">Mật khẩu (tối thiểu 6 ký tự)</label>
+          <div class="pw-wrap">
+            <input type="password" id="regPassword" data-i18n-ph="pw_ph" placeholder="••••••••" required>
+            <button type="button" class="pw-toggle" data-target="regPassword" aria-label="Show password"><i data-lucide="eye"></i></button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="regConfirm" data-i18n="reg_confirm">Xác nhận mật khẩu</label>
+          <input type="password" id="regConfirm" data-i18n-ph="pw_ph" placeholder="••••••••" required>
+        </div>
+        <label style="display:flex;align-items:flex-start;gap:8px;font-size:.78rem;color:var(--muted);cursor:pointer;margin-bottom:4px">
+          <input type="checkbox" id="agreeTerms" style="accent-color:var(--accent);margin-top:3px" required>
+          <span data-i18n="agree_text">Tôi đồng ý với Điều khoản sử dụng và Chính sách bảo mật</span>
+        </label>
+        <button type="submit" class="btn btn-primary btn-block"><i data-lucide="user-plus"></i><span data-i18n="auth_register">Đăng ký</span></button>
+        <div class="auth-alt"><span data-i18n="has_account">Đã có tài khoản?</span> <b id="switchToLogin" data-i18n="login_now">Đăng nhập</b></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+<button class="back-top" id="backTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ================= i18n dictionary ================= */
+  var I18N = {
+    vi: {
+      brand:'Dự án <b>Bot & Web</b>', brand_short:'Dự án <b>Bot & Web</b>',
+      nav_home:'Trang chủ', nav_project:'Dự án', nav_team:'Thành viên', nav_workflow:'Quy trình', nav_contact:'Liên hệ',
+      hero_badge:'Dự án công nghệ của 2 lập trình viên',
+      hero_title_pre:'Giới thiệu', hero_title_grad:'Dự án Bot & Website',
+      hero_lead:'Dự án được xây dựng bởi hai lập trình viên đến từ Việt Nam và Bangladesh, chuyên phát triển bot, website, máy chủ và giải pháp bảo mật — vận hành ổn định 24/7.',
+      hero_cta1:'Khám phá dự án', hero_cta2:'Gặp gỡ đội ngũ',
+      stat_projects:'Dự án triển khai', stat_bots:'Bot đang vận hành', stat_uptime:'Thời gian uptime', stat_countries:'Quốc gia',
+      chip_vn:'Việt Nam · 2011', chip_bd:'Bangladesh · 2005',
+      proj_eyebrow:'Giới thiệu dự án', proj_title_pre:'Mục tiêu &', proj_title_grad:'năng lực dự án',
+      proj_desc:'Dự án tập trung xây dựng và vận hành hệ thống bot, website cùng hạ tầng máy chủ an toàn, hiệu quả — từ viết code, cấu trúc file đến triển khai và bảo trì liên tục.',
+      team_eyebrow:'Thành viên dự án', team_title:'Đội ngũ <span class="grad">lập trình viên</span>',
+      team_desc:'Hai thành viên cốt lõi với chuyên môn bổ trợ cho nhau, nằm ở hai bảng giới thiệu riêng.',
+      wf_eyebrow:'Quy trình làm việc', wf_title:'Từ ý tưởng đến <span class="grad">vận hành</span>',
+      cta_title:'Có dự án cần phát triển bot hoặc website?',
+      cta_desc:'Đăng ký tài khoản để theo dõi dự án và liên hệ hợp tác với đội ngũ lập trình viên.',
+      cta_btn:'Tạo tài khoản miễn phí',
+      contact_eyebrow:'Liên hệ', contact_title:'Kết nối với <span class="grad">chúng tôi</span>',
+      contact_desc:'Mọi câu hỏi về dự án, hợp tác phát triển bot hoặc website đều được chào đón.',
+      cf_name:'Họ và tên *', cf_name_ph:'Nguyễn Văn A',
+      cf_email:'Email *', cf_email_ph:'you@example.com',
+      cf_msg:'Nội dung *', cf_msg_ph:'Mô tả dự án của bạn...',
+      cf_send:'Gửi tin nhắn',
+      err_name:'Vui lòng nhập họ tên', err_email:'Email không hợp lệ', err_msg:'Vui lòng nhập nội dung',
+      footer_about:'Dự án phát triển bot & website bởi hai lập trình viên từ Việt Nam và Bangladesh. Code sạch, vận hành ổn định, bảo mật cao.',
+      footer_nav:'Điều hướng', footer_members:'Thành viên',
+      rights:'© 2026 Dự án Bot & Website. Bảo lưu mọi quyền.',
+      madewith:'Được xây dựng bởi hai lập trình viên · VN × BD',
+      auth_login:'Đăng nhập', auth_register:'Đăng ký',
+      login_id:'Email hoặc tên đăng nhập', login_id_ph:'you@example.com',
+      login_pw:'Mật khẩu', pw_ph:'••••••••',
+      remember:'Ghi nhớ tôi', forgot:'Quên mật khẩu?',
+      no_account:'Chưa có tài khoản?', register_now:'Đăng ký ngay',
+      reg_name:'Họ và tên', reg_name_ph:'Nguyễn Văn A',
+      reg_user:'Tên đăng nhập', reg_user_ph:'devmaster',
+      reg_email:'Email', reg_pw:'Mật khẩu (tối thiểu 6 ký tự)',
+      reg_confirm:'Xác nhận mật khẩu',
+      agree_text:'Tôi đồng ý với Điều khoản sử dụng và Chính sách bảo mật',
+      has_account:'Đã có tài khoản?', login_now:'Đăng nhập',
+      login_btn:'Đăng nhập', register_btn:'Đăng ký',
+      logout:'Đăng xuất', profile:'Hồ sơ', my_projects:'Dự án của tôi', settings:'Cài đặt',
+      err_fill:'Vui lòng nhập đầy đủ thông tin',
+      err_wrong:'Email/tên đăng nhập hoặc mật khẩu không đúng',
+      err_email:'Email không hợp lệ', err_pwlen:'Mật khẩu phải có ít nhất 6 ký tự',
+      err_pwmatch:'Mật khẩu xác nhận không khớp', err_agree:'Bạn cần đồng ý với điều khoản sử dụng',
+      err_email_exists:'Email này đã được đăng ký', err_user_exists:'Tên đăng nhập đã tồn tại',
+      msg_login_ok:'Đăng nhập thành công!', msg_register_ok:'Tạo tài khoản thành công!',
+      toast_welcome:'Xin chào, ', toast_logout:'Đã đăng xuất thành công',
+      toast_contact:'Gửi tin nhắn thành công! Chúng tôi sẽ phản hồi sớm.',
+      toast_contact_err:'Vui lòng kiểm tra lại thông tin',
+      spec_label:'Chuyên môn', online:'Đang hoạt động', member_id:'MEMBER ID',
+      role_hieu:'Nhà phát triển · Cấu trúc code',
+      role_dark:'Quản trị máy chủ · Bảo mật',
+      country_vn:'Việt Nam', country_bd:'Bangladesh',
+      birth:'Sinh năm',
+      contact_addr:'Địa chỉ máy chủ', contact_addr_v:'Vietnam72\nBangladesh',
+      contact_email:'Email', contact_email_v:'tronghieuduong84@gmail.com',
+      contact_hours:'Công nghệ server', contact_hours_v:'JavaScript · Node.js',
+      features:[
+        {icon:'bot', t:'Phát triển Bot', d:'Viết code và xây dựng cấu trúc file bot từ đầu, khởi chạy và vận hành ổn định.'},
+        {icon:'globe', t:'Xây dựng Website', d:'Thiết kế cấu trúc file website, code front-end & back-end, triển khai trực tiếp.'},
+        {icon:'server', t:'Máy chủ & DNS', d:'Tạo máy chủ website, cấu hình DNS và quản lý hạ tầng lưu trữ dữ liệu.'},
+        {icon:'shield-check', t:'Bảo mật & Mã hóa', d:'Mã nguồn, mã hóa, mã bảo mật và tăng cường quét địa chỉ IP.'},
+        {icon:'refresh-cw', t:'Cập nhật trực tiếp', d:'Update thẳng trên code cũ mà không gián đoạn hoạt động của website.'},
+        {icon:'clock', t:'Vận hành 24/7', d:'Duy trì bot hoạt động liên tục, giám sát và bảo trì hệ thống suốt ngày đêm.'},
+        {icon:'file-code', t:'Cấu trúc file', d:'Tổ chức mã nguồn, file bot & website mạch lạc, rõ ràng, dễ bảo trì và mở rộng.'},
+        {icon:'zap', t:'Triển khai nhanh', d:'Khởi chạy bot & website nhanh chóng, kiểm tra lỗi và tối ưu hiệu năng.'}
+      ],
+      tech:['JavaScript','Python','Node.js','HTML/CSS','DNS','SSL/HTTPS','Firewall','Linux Server','Bot Framework','Encryption'],
+      steps:[
+        {icon:'pen-line', t:'Lên ý tưởng', d:'Phân tích yêu cầu và thiết kế kiến trúc bot & website.'},
+        {icon:'file-code-2', t:'Viết code', d:'Xây dựng cấu trúc file, mã nguồn và tính năng theo thiết kế.'},
+        {icon:'server-cog', t:'Triển khai', d:'Cấu hình máy chủ, DNS, bảo mật và khởi chạy bot & website.'},
+        {icon:'activity', t:'Vận hành 24/7', d:'Bảo trì liên tục, cập nhật code trực tiếp không gián đoạn.'}
+      ],
+      hieu_specs:[
+        'Lập trình code, file, website, bot',
+        'Viết code',
+        'Tạo cấu trúc file bot, website',
+        'Khởi chạy bot, website',
+        'Cập nhật trực tiếp trên code cũ, không gián đoạn hoạt động website'
+      ],
+      dark_specs:[
+        'Viết code',
+        'Tạo máy chủ website, DNS',
+        'Mã nguồn, mã hóa, mã bảo mật',
+        'Tăng cường quét địa chỉ IP',
+        'Khởi chạy bot, website',
+        'Viết cấu trúc code bot, website',
+        'Duy trì bot hoạt động 24/7'
+      ]
+    },
+    en: {
+      brand:'<b>Bot & Web</b> Project', brand_short:'<b>Bot & Web</b> Project',
+      nav_home:'Home', nav_project:'Project', nav_team:'Team', nav_workflow:'Workflow', nav_contact:'Contact',
+      hero_badge:'Tech project by 2 developers',
+      hero_title_pre:'Introducing the', hero_title_grad:'Bot & Website Project',
+      hero_lead:'A project built by two developers from Vietnam and Bangladesh, specializing in bots, websites, servers and security solutions — running stable 24/7.',
+      hero_cta1:'Explore project', hero_cta2:'Meet the team',
+      stat_projects:'Projects deployed', stat_bots:'Bots running', stat_uptime:'Uptime rate', stat_countries:'Countries',
+      chip_vn:'Vietnam · 2011', chip_bd:'Bangladesh · 2005',
+      proj_eyebrow:'About the project', proj_title_pre:'Goals &', proj_title_grad:'project capabilities',
+      proj_desc:'The project focuses on building and operating bot systems, websites and secure, efficient server infrastructure — from writing code and file structure to deployment and continuous maintenance.',
+      team_eyebrow:'Project members', team_title:'The <span class="grad">developer</span> team',
+      team_desc:'Two core members with complementary skills, presented in two separate profile cards.',
+      wf_eyebrow:'Workflow', wf_title:'From idea to <span class="grad">production</span>',
+      cta_title:'Have a bot or website project in mind?',
+      cta_desc:'Create an account to follow the project and get in touch with the developer team.',
+      cta_btn:'Create free account',
+      contact_eyebrow:'Contact', contact_title:'Connect with <span class="grad">us</span>',
+      contact_desc:'Questions about the project or collaboration on bots & websites are always welcome.',
+      cf_name:'Full name *', cf_name_ph:'John Doe',
+      cf_email:'Email *', cf_email_ph:'you@example.com',
+      cf_msg:'Message *', cf_msg_ph:'Describe your project...',
+      cf_send:'Send message',
+      err_name:'Please enter your name', err_email:'Invalid email', err_msg:'Please enter a message',
+      footer_about:'Bot & website development project by two developers from Vietnam and Bangladesh. Clean code, stable operation, high security.',
+      footer_nav:'Navigation', footer_members:'Members',
+      rights:'© 2026 Bot & Website Project. All rights reserved.',
+      madewith:'Built by two developers · VN × BD',
+      auth_login:'Log in', auth_register:'Sign up',
+      login_id:'Email or username', login_id_ph:'you@example.com',
+      login_pw:'Password', pw_ph:'••••••••',
+      remember:'Remember me', forgot:'Forgot password?',
+      no_account:"Don't have an account?", register_now:'Sign up now',
+      reg_name:'Full name', reg_name_ph:'John Doe',
+      reg_user:'Username', reg_user_ph:'devmaster',
+      reg_email:'Email', reg_pw:'Password (min. 6 characters)',
+      reg_confirm:'Confirm password',
+      agree_text:'I agree to the Terms of Service and Privacy Policy',
+      has_account:'Already have an account?', login_now:'Log in',
+      login_btn:'Log in', register_btn:'Sign up',
+      logout:'Log out', profile:'Profile', my_projects:'My projects', settings:'Settings',
+      err_fill:'Please fill in all fields',
+      err_wrong:'Email/username or password is incorrect',
+      err_email:'Invalid email address', err_pwlen:'Password must be at least 6 characters',
+      err_pwmatch:'Passwords do not match', err_agree:'You must agree to the terms',
+      err_email_exists:'This email is already registered', err_user_exists:'Username already taken',
+      msg_login_ok:'Login successful!', msg_register_ok:'Account created successfully!',
+      toast_welcome:'Welcome, ', toast_logout:'Logged out successfully',
+      toast_contact:'Message sent! We will reply soon.',
+      toast_contact_err:'Please check your information',
+      spec_label:'Specialties', online:'Online', member_id:'MEMBER ID',
+      role_hieu:'Developer · Code structure',
+      role_dark:'Server admin · Security',
+      country_vn:'Vietnam', country_bd:'Bangladesh',
+      birth:'Born',
+      contact_addr:'Server location', contact_addr_v:'Vietnam72\nBangladesh',
+      contact_email:'Email', contact_email_v:'tronghieuduong84@gmail.com',
+      contact_hours:'Server technology', contact_hours_v:'JavaScript · Node.js',
+      features:[
+        {icon:'bot', t:'Bot Development', d:'Writing code and building bot file structure from scratch, deploying stable bots.'},
+        {icon:'globe', t:'Website Building', d:'Designing website file structure, front-end & back-end code, direct deployment.'},
+        {icon:'server', t:'Server & DNS', d:'Setting up web servers, DNS configuration and storage infrastructure management.'},
+        {icon:'shield-check', t:'Security & Encryption', d:'Source code, encryption, security codes and enhanced IP address scanning.'},
+        {icon:'refresh-cw', t:'Live Updates', d:'Updating directly on existing code without interrupting website operation.'},
+        {icon:'clock', t:'24/7 Operation', d:'Keeping bots running continuously, monitoring and maintaining systems around the clock.'},
+        {icon:'file-code', t:'File Structure', d:'Organizing source code, bot & website files clearly, easy to maintain and scale.'},
+        {icon:'zap', t:'Fast Deployment', d:'Launching bots & websites quickly, debugging and optimizing performance.'}
+      ],
+      tech:['JavaScript','Python','Node.js','HTML/CSS','DNS','SSL/HTTPS','Firewall','Linux Server','Bot Framework','Encryption'],
+      steps:[
+        {icon:'pen-line', t:'Ideation', d:'Analyzing requirements and designing bot & website architecture.'},
+        {icon:'file-code-2', t:'Coding', d:'Building file structure, source code and features per design.'},
+        {icon:'server-cog', t:'Deployment', d:'Configuring server, DNS, security and launching bots & websites.'},
+        {icon:'activity', t:'24/7 Operation', d:'Continuous maintenance, live code updates with zero downtime.'}
+      ],
+      hieu_specs:[
+        'Programming code, files, websites, bots',
+        'Writing code',
+        'Building file structure for bots & websites',
+        'Launching bots & websites',
+        'Live updates on existing code without website downtime'
+      ],
+      dark_specs:[
+        'Writing code',
+        'Setting up web servers & DNS',
+        'Source code, encryption, security codes',
+        'Enhanced IP address scanning',
+        'Launching bots & websites',
+        'Building code structure for bots & websites',
+        'Maintaining bots 24/7'
+      ]
+    }
+  };
+
+  var LANG = (localStorage.getItem('vct_lang')||'vi');
+  function t(key){var d=I18N[LANG][key];return d===undefined?key:d;}
+
+  /* ================= Helpers ================= */
+  function $(id){return document.getElementById(id);}
+  function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+  function icon(name){return '<i data-lucide="'+name+'"></i>';}
+
+  /* ================= Language switcher ================= */
+  function applyLang(){
+    document.documentElement.lang = LANG;
+    $('langLabel').textContent = LANG==='vi'?'EN':'VI';
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var key=el.getAttribute('data-i18n');
+      if(I18N[LANG][key]!==undefined) el.innerHTML=I18N[LANG][key];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+      var key=el.getAttribute('data-i18n-ph');
+      if(I18N[LANG][key]!==undefined) el.placeholder=I18N[LANG][key];
+    });
+    renderFeatures(); renderTeam(); renderSteps(); renderContactInfo(); renderTech();
+    renderNavAuth();
+    if(window.lucide)lucide.createIcons();
+  }
+  $('langToggle').addEventListener('click',function(){
+    LANG = LANG==='vi'?'en':'vi';
+    localStorage.setItem('vct_lang',LANG);
+    applyLang();
+  });
+
+  /* ================= Dynamic renders ================= */
+  function renderFeatures(){
+    var grid=$('featuresGrid'); grid.innerHTML='';
+    I18N[LANG].features.forEach(function(f,i){
+      var c=document.createElement('div');
+      c.className='feature-card reveal visible';
+      c.style.transitionDelay=(i*0.05)+'s';
+      c.innerHTML='<div class="feature-icon">'+icon(f.icon)+'</div><h3>'+esc(f.t)+'</h3><p>'+esc(f.d)+'</p>';
+      grid.appendChild(c);
+    });
+  }
+  function renderTech(){
+    var wrap=$('techStack'); wrap.innerHTML='';
+    I18N[LANG].tech.forEach(function(name){
+      var tag=document.createElement('span');
+      tag.className='tech-tag';
+      tag.innerHTML=icon('code-2')+' '+esc(name);
+      wrap.appendChild(tag);
+    });
+  }
+  function renderSteps(){
+    var grid=$('stepsGrid'); grid.innerHTML='';
+    I18N[LANG].steps.forEach(function(s){
+      var c=document.createElement('div');
+      c.className='step reveal visible';
+      c.innerHTML='<div class="step-icon">'+icon(s.icon)+'</div><h4>'+esc(s.t)+'</h4><p>'+esc(s.d)+'</p>';
+      grid.appendChild(c);
+    });
+  }
+  function renderContactInfo(){
+    var wrap=$('contactInfo'); if(!wrap)return; wrap.innerHTML='';
+    var items=[
+      {icon:'mail', h:t('contact_email'), v:t('contact_email_v')},
+      {icon:'server', h:t('contact_addr'), v:t('contact_addr_v')},
+      {icon:'code-2', h:t('contact_hours'), v:t('contact_hours_v')}
+    ];
+    items.forEach(function(it){
+      var d=document.createElement('div');
+      d.className='contact-item';
+      d.innerHTML='<div class="ci-icon">'+icon(it.icon)+'</div><div><h4>'+esc(it.h)+'</h4><p>'+esc(it.v).replace(/\n/g,'<br>')+'</p></div>';
+      wrap.appendChild(d);
+    });
+  }
+
+  /* ================= Team: two separate cards ================= */
+  function specItem(text){
+    return '<li><span class="spec-check">'+icon('check')+'</span><span>'+esc(text)+'</span></li>';
+  }
+  function renderTeam(){
+    var grid=$('teamGrid'); grid.innerHTML='';
+    var d=I18N[LANG];
+    // Card 1 — Trọng Hiếu
+    var hieu=document.createElement('div');
+    hieu.className='member-card hieu reveal visible';
+    var hieuSpecs=d.hieu_specs.map(specItem).join('');
+    hieu.innerHTML=
+      '<div class="member-header">'+
+        '<div class="member-avatar">TH</div>'+
+        '<div class="member-name">Trọng Hiếu</div>'+
+        '<div class="member-role">'+esc(d.role_hieu)+'</div>'+
+        '<div class="member-meta">'+
+          '<span class="meta-badge">'+icon('map-pin')+'<span class="country-code">VN</span> '+esc(d.country_vn)+'</span>'+
+          '<span class="meta-badge">'+icon('cake')+esc(d.birth)+': 2011</span>'+
+        '</div>'+
+      '</div>'+
+      '<div class="member-body">'+
+        '<div class="spec-title">'+esc(d.spec_label)+'</div>'+
+        '<ul class="spec-list">'+hieuSpecs+'</ul>'+
+        '<div class="member-footer">'+
+          '<span class="online-status"><span class="dot"></span>'+esc(d.online)+'</span>'+
+          '<span class="member-id">'+esc(d.member_id)+': TH-2011-VN</span>'+
+        '</div>'+
+      '</div>';
+    grid.appendChild(hieu);
+    // Card 2 — Dark Qyoocs
+    var dark=document.createElement('div');
+    dark.className='member-card darkm reveal visible';
+    var darkSpecs=d.dark_specs.map(specItem).join('');
+    dark.innerHTML=
+      '<div class="member-header">'+
+        '<div class="member-avatar">DQ</div>'+
+        '<div class="member-name">Dark Qyoocs</div>'+
+        '<div class="member-role">'+esc(d.role_dark)+'</div>'+
+        '<div class="member-meta">'+
+          '<span class="meta-badge">'+icon('map-pin')+'<span class="country-code">BD</span> '+esc(d.country_bd)+'</span>'+
+          '<span class="meta-badge">'+icon('cake')+esc(d.birth)+': 2005</span>'+
+        '</div>'+
+      '</div>'+
+      '<div class="member-body">'+
+        '<div class="spec-title">'+esc(d.spec_label)+'</div>'+
+        '<ul class="spec-list">'+darkSpecs+'</ul>'+
+        '<div class="member-footer">'+
+          '<span class="online-status"><span class="dot"></span>'+esc(d.online)+'</span>'+
+          '<span class="member-id">'+esc(d.member_id)+': DQ-2005-BD</span>'+
+        '</div>'+
+      '</div>';
+    grid.appendChild(dark);
+  }
+
+  /* ================= Toast ================= */
+  function toast(msg,type){
+    type=type||'info';
+    var c=$('toastContainer');
+    var el=document.createElement('div');
+    el.className='toast '+type;
+    var iconName=type==='success'?'check-circle-2':type==='error'?'alert-circle':'info';
+    el.innerHTML='<div class="toast-icon">'+icon(iconName)+'</div><div class="toast-msg">'+esc(msg)+'</div>';
+    c.appendChild(el);
+    if(window.lucide)lucide.createIcons();
+    requestAnimationFrame(function(){el.classList.add('show');});
+    setTimeout(function(){el.classList.remove('show');setTimeout(function(){el.remove();},400);},3500);
+  }
+
+  /* ================= Auth (localStorage demo) ================= */
+  var USERS_KEY='proj_users', SESS_KEY='proj_session';
+  function getUsers(){try{return JSON.parse(localStorage.getItem(USERS_KEY))||[];}catch(e){return [];}}
+  function saveUsers(u){localStorage.setItem(USERS_KEY,JSON.stringify(u));}
+  function getSession(){try{return JSON.parse(localStorage.getItem(SESS_KEY));}catch(e){return null;}}
+  function setSession(u){localStorage.setItem(SESS_KEY,JSON.stringify(u));}
+  function clearSession(){localStorage.removeItem(SESS_KEY);}
+  function initials(name){var p=name.trim().split(/\s+/);if(p.length===1)return p[0].slice(0,2).toUpperCase();return (p[0][0]+p[p.length-1][0]).toUpperCase();}
+
+  function renderNavAuth(){
+    var sess=getSession();
+    var nav=$('navAuth'), drawer=$('drawerAuth');
+    if(sess){
+      nav.innerHTML=
+        '<div class="user-menu">'+
+          '<button class="user-btn" id="userBtn"><span class="avatar">'+esc(initials(sess.name||sess.username))+'</span><span class="user-name">'+esc(sess.name||sess.username)+'</span>'+icon('chevron-down')+'</button>'+
+          '<div class="user-dropdown" id="userDropdown">'+
+            '<div class="dd-head"><div class="dd-name">'+esc(sess.name||sess.username)+'</div><div class="dd-mail">'+esc(sess.email)+'</div></div>'+
+            '<button class="dd-item" id="profileBtn">'+icon('user')+esc(t('profile'))+'</button>'+
+            '<button class="dd-item" id="projectsBtn">'+icon('folder-git-2')+esc(t('my_projects'))+'</button>'+
+            '<button class="dd-item" id="settingsBtn">'+icon('settings')+esc(t('settings'))+'</button>'+
+            '<button class="dd-item danger" id="logoutBtn">'+icon('log-out')+esc(t('logout'))+'</button>'+
+          '</div>'+
+        '</div>';
+      drawer.innerHTML=
+        '<div style="display:flex;align-items:center;gap:10px;padding:12px;background:var(--card);border-radius:10px;margin-bottom:10px">'+
+          '<span class="avatar">'+esc(initials(sess.name||sess.username))+'</span>'+
+          '<div><div style="font-weight:700;font-size:.9rem">'+esc(sess.name||sess.username)+'</div><div style="font-size:.75rem;color:var(--muted)">'+esc(sess.email)+'</div></div>'+
+        '</div>'+
+        '<button class="btn btn-outline btn-block" id="drawerLogout">'+icon('log-out')+esc(t('logout'))+'</button>';
+      var ub=$('userBtn'), ud=$('userDropdown');
+      ub.addEventListener('click',function(e){e.stopPropagation();ud.classList.toggle('open');});
+      document.addEventListener('click',function(){ud.classList.remove('open');});
+      $('logoutBtn').addEventListener('click',doLogout);
+      $('drawerLogout').addEventListener('click',doLogout);
+      $('profileBtn').addEventListener('click',function(){ud.classList.remove('open');toast(LANG==='vi'?'Trang hồ sơ đang được phát triển':'Profile page coming soon','info');});
+      $('projectsBtn').addEventListener('click',function(){ud.classList.remove('open');toast(LANG==='vi'?'Bạn chưa tham gia dự án nào':'No projects joined yet','info');});
+      $('settingsBtn').addEventListener('click',function(){ud.classList.remove('open');toast(LANG==='vi'?'Cài đặt đang được phát triển':'Settings coming soon','info');});
+    }else{
+      nav.innerHTML=
+        '<button class="btn btn-outline btn-sm" id="navLogin">'+icon('log-in')+esc(t('auth_login'))+'</button>'+
+        '<button class="btn btn-primary btn-sm" id="navRegister">'+icon('user-plus')+esc(t('auth_register'))+'</button>';
+      drawer.innerHTML=
+        '<button class="btn btn-outline btn-block" id="drawerLogin">'+icon('log-in')+esc(t('auth_login'))+'</button>'+
+        '<button class="btn btn-primary btn-block" id="drawerRegister">'+icon('user-plus')+esc(t('auth_register'))+'</button>';
+      $('navLogin').addEventListener('click',function(){openAuth('login');});
+      $('navRegister').addEventListener('click',function(){openAuth('register');});
+      $('drawerLogin').addEventListener('click',function(){closeDrawer();openAuth('login');});
+      $('drawerRegister').addEventListener('click',function(){closeDrawer();openAuth('register');});
+    }
+    if(window.lucide)lucide.createIcons();
+  }
+  function doLogout(){clearSession();closeDrawer();renderNavAuth();toast(t('toast_logout'),'success');}
+
+  function showAuthMsg(msg,type){var el=$('authMsg');el.textContent=msg;el.className='auth-msg '+type;}
+  function clearAuthMsg(){$('authMsg').className='auth-msg';$('authMsg').textContent='';}
+  function openAuth(tab){$('authModal').classList.add('open');document.body.style.overflow='hidden';switchTab(tab);clearAuthMsg();}
+  function closeAuth(){$('authModal').classList.remove('open');if(!$('mobileDrawer').classList.contains('open'))document.body.style.overflow='';}
+  function switchTab(tab){
+    document.querySelectorAll('.auth-tab').forEach(function(b){b.classList.toggle('active',b.dataset.tab===tab);});
+    $('loginForm').classList.toggle('active',tab==='login');
+    $('registerForm').classList.toggle('active',tab==='register');
+    clearAuthMsg();
+  }
+
+  $('loginForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var id=$('loginEmail').value.trim(), pw=$('loginPassword').value;
+    if(!id||!pw){showAuthMsg(t('err_fill'),'error');return;}
+    var users=getUsers();
+    var found=users.find(function(u){return (u.email===id||u.username===id)&&u.password===pw;});
+    if(!found){showAuthMsg(t('err_wrong'),'error');return;}
+    setSession({name:found.name,username:found.username,email:found.email});
+    showAuthMsg(t('msg_login_ok'),'success');
+    setTimeout(function(){closeAuth();renderNavAuth();toast(t('toast_welcome')+(found.name||found.username)+'!','success');$('loginForm').reset();},800);
+  });
+
+  $('registerForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=$('regName').value.trim(), user=$('regUser').value.trim(), email=$('regEmail').value.trim(),
+        pw=$('regPassword').value, confirm=$('regConfirm').value, agree=$('agreeTerms').checked;
+    if(!name||!user||!email||!pw){showAuthMsg(t('err_fill'),'error');return;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showAuthMsg(t('err_email'),'error');return;}
+    if(pw.length<6){showAuthMsg(t('err_pwlen'),'error');return;}
+    if(pw!==confirm){showAuthMsg(t('err_pwmatch'),'error');return;}
+    if(!agree){showAuthMsg(t('err_agree'),'error');return;}
+    var users=getUsers();
+    if(users.find(function(u){return u.email===email;})){showAuthMsg(t('err_email_exists'),'error');return;}
+    if(users.find(function(u){return u.username===user;})){showAuthMsg(t('err_user_exists'),'error');return;}
+    users.push({name:name,username:user,email:email,password:pw,createdAt:Date.now()});
+    saveUsers(users);
+    setSession({name:name,username:user,email:email});
+    showAuthMsg(t('msg_register_ok'),'success');
+    setTimeout(function(){closeAuth();renderNavAuth();toast(t('toast_welcome')+(name||user)+'!','success');$('registerForm').reset();},900);
+  });
+
+  $('modalClose').addEventListener('click',closeAuth);
+  $('authModal').addEventListener('click',function(e){if(e.target===this)closeAuth();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeAuth();closeDrawer();}});
+  document.querySelectorAll('.auth-tab').forEach(function(b){b.addEventListener('click',function(){switchTab(b.dataset.tab);});});
+  $('switchToRegister').addEventListener('click',function(){switchTab('register');});
+  $('switchToLogin').addEventListener('click',function(){switchTab('login');});
+  document.querySelectorAll('.pw-toggle').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var inp=$(btn.dataset.target);var isPw=inp.type==='password';
+      inp.type=isPw?'text':'password';
+      btn.innerHTML=icon(isPw?'eye-off':'eye');
+      if(window.lucide)lucide.createIcons();
+    });
+  });
+  $('ctaRegister').addEventListener('click',function(){openAuth('register');});
+
+  /* ================= Mobile drawer ================= */
+  function openDrawer(){$('mobileDrawer').classList.add('open');$('drawerOverlay').classList.add('open');document.body.style.overflow='hidden';}
+  function closeDrawer(){$('mobileDrawer').classList.remove('open');$('drawerOverlay').classList.remove('open');if(!$('authModal').classList.contains('open'))document.body.style.overflow='';}
+  $('hamburger').addEventListener('click',openDrawer);
+  $('drawerClose').addEventListener('click',closeDrawer);
+  $('drawerOverlay').addEventListener('click',closeDrawer);
+  document.querySelectorAll('.drawer-link').forEach(function(a){a.addEventListener('click',closeDrawer);});
+
+  /* ================= Navbar scroll + back to top ================= */
+  var navbar=$('navbar'), backTop=$('backTop');
+  window.addEventListener('scroll',function(){
+    navbar.classList.toggle('scrolled',window.scrollY>20);
+    backTop.classList.toggle('show',window.scrollY>400);
+  },{passive:true});
+  backTop.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+
+  /* ================= Contact form ================= */
+  $('contactForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var ok=true;
+    var name=$('cfName'), email=$('cfEmail'), msg=$('cfMessage');
+    [name,email,msg].forEach(function(f){f.closest('.form-group').classList.remove('invalid');});
+    if(!name.value.trim()){name.closest('.form-group').classList.add('invalid');ok=false;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())){email.closest('.form-group').classList.add('invalid');ok=false;}
+    if(!msg.value.trim()){msg.closest('.form-group').classList.add('invalid');ok=false;}
+    if(!ok){toast(t('toast_contact_err'),'error');return;}
+    toast(t('toast_contact'),'success');
+    this.reset();
+  });
+
+  /* ================= Typing effect ================= */
+  var phrases=['./deploy --all','git push origin main','bot start --daemon','server up --ssl','scan ip --secure'];
+  var pi=0, ci=0, deleting=false;
+  var typingEl=$('typingText');
+  function typeLoop(){
+    var cur=phrases[pi];
+    if(!deleting){
+      ci++;typingEl.textContent=cur.slice(0,ci);
+      if(ci===cur.length){deleting=true;setTimeout(typeLoop,1600);return;}
+      setTimeout(typeLoop,75);
+    }else{
+      ci--;typingEl.textContent=cur.slice(0,ci);
+      if(ci===0){deleting=false;pi=(pi+1)%phrases.length;setTimeout(typeLoop,400);return;}
+      setTimeout(typeLoop,35);
+    }
+  }
+
+  /* ================= Count up ================= */
+  function countUp(el){
+    var target=parseInt(el.dataset.count,10);
+    var start=performance.now(), dur=1500;
+    function step(now){
+      var p=Math.min(1,(now-start)/dur);
+      var eased=1-Math.pow(1-p,3);
+      if(el.firstChild) el.firstChild.nodeValue=Math.round(eased*target);
+      if(p<1)requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ================= Scroll reveal ================= */
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        en.target.classList.add('visible');
+        en.target.querySelectorAll('[data-count]').forEach(countUp);
+        io.unobserve(en.target);
+      }
+    });
+  },{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+  /* ================= Init ================= */
+  applyLang();
+  typeLoop();
+  function tryLucide(){if(window.lucide){lucide.createIcons();}else{setTimeout(tryLucide,200);}}
+  tryLucide();
+})();
+</script>
+</body>
+</html>
